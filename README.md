@@ -96,7 +96,7 @@ The following options are available for configuring this serializer:
     serializers {
         java = "org.apache.pekko.serialization.JavaSerializer"
         # Define kryo serializer
-        kryo = "io.altoo.pekko.serialization.kryo.KryoSerializer"
+        kryo = "io.altoo.serialization.kryo.pekko.PekkoKryoSerializer"
     }
     ```
 
@@ -328,7 +328,7 @@ class XyzKryoSerializer(system: ExtendedActorSystem) extends KryoSerializer(syst
 And finally declare the custom serializer in the `akka.actor.serializers` section:
 ```hocon
     serializers {
-        kryo = "io.altoo.pekko.serialization.kryo.KryoSerializer"
+        kryo = "io.altoo.serialization.kryo.pekko.PekkoKryoSerializer"
         # define additional kryo serializer
         kryo-xyz = "xyz.XyzKryoSerializer"
     }

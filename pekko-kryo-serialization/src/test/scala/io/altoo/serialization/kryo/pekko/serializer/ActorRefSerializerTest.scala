@@ -1,13 +1,12 @@
-package io.altoo.serialization.kryo.pekko.typed.serializer
+package io.altoo.serialization.kryo.pekko.serializer
 
-import org.apache.pekko.actor.typed.ActorRef
-import org.apache.pekko.actor.typed.scaladsl.Behaviors
+import org.apache.pekko.actor.{Actor, ActorRef, Props}
 import org.apache.pekko.serialization.SerializationExtension
 import com.typesafe.config.ConfigFactory
 import io.altoo.serialization.kryo.pekko.PekkoKryoSerializer
-import io.altoo.serialization.kryo.pekko.typed.testkit.AbstractTypedPekkoTest
+import io.altoo.serialization.kryo.pekko.testkit.AbstractPekkoTest
 
-object TypedActorRefSerializerTest {
+object ActorRefSerializerTest {
   private val testConfig =
     """
       |pekko {
@@ -16,8 +15,7 @@ object TypedActorRefSerializerTest {
       |      kryo = "io.altoo.serialization.kryo.pekko.PekkoKryoSerializer"
       |    }
       |    serialization-bindings {
-      |      "org.apache.pekko.actor.typed.ActorRef" = kryo
-      |      "org.apache.pekko.actor.typed.internal.adapter.ActorRefAdapter" = kryo
+      |      "org.apache.pekko.actor.ActorRef" = kryo
       |    }
       |  }
       |}
@@ -28,29 +26,26 @@ object TypedActorRefSerializerTest {
       |  post-serialization-transformations = off
       |}
       |""".stripMargin
-
-  private trait Msg
 }
 
-class TypedActorRefSerializerTest extends AbstractTypedPekkoTest(ConfigFactory.parseString(TypedActorRefSerializerTest.testConfig)) {
-  import TypedActorRefSerializerTest.*
+class ActorRefSerializerTest extends AbstractPekkoTest(ConfigFactory.parseString(ActorRefSerializerTest.testConfig)) {
+  private val serialization = SerializationExtension(system)
 
-  private val serialization = SerializationExtension(testKit.system.classicSystem)
 
-  behavior of "TypedActorRefSerializer"
+  behavior of "ActorRefSerializer"
 
   it should "serialize and deserialize actorRef" in {
-    val value: ActorRef[Msg] = testKit.spawn(Behaviors.ignore[Msg])
+    val value: ActorRef = system.actorOf(Props(new Actor {def receive: Receive = PartialFunction.empty}))
 
     // serialize
     val serializer = serialization.findSerializerFor(value)
     serializer shouldBe a[PekkoKryoSerializer]
 
     val serialized = serialization.serialize(value)
-    serialized shouldBe a[util.Success[?]]
+    serialized shouldBe a[util.Success[_]]
 
     // deserialize
-    val deserialized = serialization.deserialize(serialized.get, classOf[ActorRef[Msg]])
+    val deserialized = serialization.deserialize(serialized.get, classOf[ActorRef])
     deserialized shouldBe util.Success(value)
   }
 }
