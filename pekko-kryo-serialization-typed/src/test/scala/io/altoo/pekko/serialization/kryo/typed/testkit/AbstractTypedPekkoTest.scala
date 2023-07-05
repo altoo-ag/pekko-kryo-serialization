@@ -1,4 +1,4 @@
-package io.altoo.pekko.serialization.kryo.typed.testkit
+package io.altoo.serialization.kryo.pekko.typed.testkit
 
 import org.apache.pekko.actor.testkit.typed.scaladsl.ActorTestKit
 import com.typesafe.config.Config
