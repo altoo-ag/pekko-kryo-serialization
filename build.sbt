@@ -134,7 +134,8 @@ lazy val scalacStrictOptions = Seq(
           "-Ywarn-inaccessible",
           "-Ywarn-nullary-override",
           "-Ywarn-nullary-unit",
-          "-Ywarn-unused:-explicits,-implicits,_")
+          "-Ywarn-unused:-explicits,-implicits,_",
+          "-Xsource:3")
       case "2.13" =>
         Seq(
           "-Werror",
@@ -145,7 +146,8 @@ lazy val scalacStrictOptions = Seq(
           "-Wunused:privates",
           "-Wunused:locals",
           // "-Wunused:params", enable once 2.12 support is dropped
-          "-Wunused:nowarn")
+          "-Wunused:nowarn",
+          "-Xsource:3")
       case "3" =>
         Seq(
           // "-Xfatal-warnings", enable once dotty supports @nowarn

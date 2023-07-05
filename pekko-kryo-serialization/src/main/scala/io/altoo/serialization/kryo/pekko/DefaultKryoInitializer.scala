@@ -1,12 +1,8 @@
 package io.altoo.serialization.kryo.pekko
 
-import com.esotericsoftware.kryo.Serializer
-import com.esotericsoftware.kryo.serializers.FieldSerializer
 import io.altoo.serialization.kryo.pekko.serializer.*
 import io.altoo.serialization.kryo.scala.serializer.ScalaKryo
 import org.apache.pekko.actor.{ActorRef, ExtendedActorSystem}
-
-import scala.util.{Failure, Success}
 
 /**
  * Extensible strategy to configure and customize kryo instance.

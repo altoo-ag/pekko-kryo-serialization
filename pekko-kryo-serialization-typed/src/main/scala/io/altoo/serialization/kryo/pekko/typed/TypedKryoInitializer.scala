@@ -1,6 +1,5 @@
 package io.altoo.serialization.kryo.pekko.typed
 
-import org.apache.pekko.actor.ExtendedActorSystem
 import org.apache.pekko.actor.typed
 import io.altoo.serialization.kryo.pekko.DefaultKryoInitializer
 import io.altoo.serialization.kryo.pekko.typed.serializer.TypedActorRefSerializer
