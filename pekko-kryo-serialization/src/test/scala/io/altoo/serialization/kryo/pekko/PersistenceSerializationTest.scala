@@ -1,7 +1,6 @@
 package io.altoo.serialization.kryo.pekko
 
 import java.io.File
-
 import org.apache.pekko.actor.*
 import org.apache.pekko.persistence.*
 import org.apache.pekko.serialization.SerializationExtension
@@ -12,6 +11,7 @@ import org.scalatest.*
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
 
+import java.util.UUID
 import scala.concurrent.duration.*
 import scala.language.postfixOps
 
@@ -48,7 +48,7 @@ object PersistenceSerializationTest {
     }
   }
 
-  private val config =
+  private def config(testNum: Int) =
     s"""
        |pekko {
        |  actor {
@@ -67,7 +67,7 @@ object PersistenceSerializationTest {
        |  persistence {
        |    journal.plugin = "pekko.persistence.journal.inmem"
        |    snapshot-store.plugin = "pekko.persistence.snapshot-store.local"
-       |    snapshot-store.local.dir = "target/test-snapshots"
+       |    snapshot-store.local.dir = "target/test-snapshots-$testNum"
        |  }
        |}
        |
@@ -91,7 +91,8 @@ object PersistenceSerializationTest {
        |""".stripMargin
 }
 
-class PersistenceSerializationTest extends TestKit(ActorSystem("testSystem", ConfigFactory.parseString(PersistenceSerializationTest.config))) with AnyWordSpecLike with Matchers with Inside
+class PersistenceSerializationTest extends TestKit(ActorSystem(s"testSystem", ConfigFactory.parseString(PersistenceSerializationTest.config(UUID.randomUUID().hashCode()))))
+    with AnyWordSpecLike with Matchers with Inside
     with ImplicitSender with BeforeAndAfterAll {
   import PersistenceSerializationTest.*
 
