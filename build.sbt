@@ -7,7 +7,7 @@ import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 val mainScalaVersion = "3.3.0"
 val secondaryScalaVersions = Seq("2.12.18", "2.13.11")
 
-val scalaKryoVersion = "1.0.0-RC1"
+val scalaKryoVersion = "1.0.0"
 val defaultPekkoVersion = "1.0.1"
 val pekkoVersion =
   System.getProperty("pekko.build.version", defaultPekkoVersion) match {
@@ -73,9 +73,7 @@ lazy val testingDeps = Seq(
 
 // Settings
 lazy val commonSettings: Seq[Setting[?]] = Seq(
-  organization := "io.altoo",
-  resolvers += Resolver.ApacheMavenSnapshotsRepo,
-  resolvers += "apache-staging".at("https://repository.apache.org/content/repositories/staging"))
+  organization := "io.altoo")
 
 lazy val moduleSettings: Seq[Setting[?]] = commonSettings ++ noReleaseInSubmoduleSettings ++ scalacBasicOptions ++ scalacStrictOptions ++ scalacLintOptions ++ Seq(
   scalaVersion := mainScalaVersion,
