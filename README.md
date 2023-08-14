@@ -45,7 +45,7 @@ We provide several versions of the library:
 
 Version | Akka & Kryo Compatibility | Available Scala Versions | Tested with                                                                 |
 --------|---------------------------|--------------------------|-----------------------------------------------------------------------------|
-v1.0.x  | Pekko-1.0 and Kryo-5.4    | 2.12,2.13,3.1            | JDK: OpenJdk11,OpenJdk17           Scala: 2.12.17,2.13.10,3.1.3 Pekko: ??? |
+v1.0.x  | Pekko-1.0 and Kryo-5.4    | 2.12,2.13,3.1            | JDK: OpenJdk11,OpenJdk17           Scala: 2.12.17,2.13.10,3.1.3 Pekko: 1.0.1 |
 
 
 Note that we use semantic versioning - see [semver.org](https://semver.org/).
@@ -75,7 +75,7 @@ To use the official release of pekko-kryo-serialization in Maven projects, pleas
     <dependency>
         <groupId>io.altoo</groupId>
         <artifactId>pekko-kryo-serialization_2.13</artifactId>
-        <version>1.0.0-RC1</version>
+        <version>1.0.0</version>
     </dependency>
 ```
 
