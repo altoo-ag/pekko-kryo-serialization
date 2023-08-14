@@ -7,7 +7,7 @@ import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 val mainScalaVersion = "3.3.0"
 val secondaryScalaVersions = Seq("2.12.18", "2.13.11")
 
-val scalaKryoVersion = "1.0.0"
+val scalaKryoVersion = "1.0.1"
 val defaultPekkoVersion = "1.0.1"
 val pekkoVersion =
   System.getProperty("pekko.build.version", defaultPekkoVersion) match {
