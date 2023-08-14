@@ -8,7 +8,7 @@ import org.apache.pekko.serialization.{ByteBufferSerializer, Serializer}
 import java.nio.ByteBuffer
 
 class PekkoKryoSerializer(val system: ExtendedActorSystem) extends KryoSerializer(system.settings.config, system.dynamicAccess.classLoader) with Serializer with ByteBufferSerializer {
-  override protected[kryo] def configKey: String = "pekko-kryo-serialization"
+  override protected def configKey: String = "pekko-kryo-serialization"
   override protected[kryo] val useManifest: Boolean = system.settings.config.getBoolean(s"$configKey.use-manifests")
   override protected[kryo] def prepareKryoInitializer(initializer: scala.DefaultKryoInitializer): Unit = initializer match {
     case init: DefaultKryoInitializer => init.system_=(system)
@@ -19,10 +19,10 @@ class PekkoKryoSerializer(val system: ExtendedActorSystem) extends KryoSerialize
   override def identifier: Int = 123454323
   override def includeManifest: Boolean = useManifest
 
-  override def toBinary(obj: AnyRef): Array[Byte] = super[KryoSerializer].toBinary(obj)
-  override def fromBinary(bytes: Array[Byte], clazz: Option[Class[?]]): AnyRef = super[KryoSerializer].fromBinary(bytes, clazz)
+  def toBinary(obj: AnyRef): Array[Byte] = toBinaryInternal(obj)
+  def fromBinary(bytes: Array[Byte], clazz: Option[Class[?]]): AnyRef = fromBinaryInternal(bytes, clazz)
 
   // ByteBufferSerializer API
-  override def toBinary(obj: AnyRef, buf: ByteBuffer): Unit = super[KryoSerializer].toBinary(obj, buf)
-  override def fromBinary(buf: ByteBuffer, manifest: String): AnyRef = super[KryoSerializer].fromBinary(buf, Some(manifest))
+  def toBinary(obj: AnyRef, buf: ByteBuffer): Unit = toBinaryInternal(obj.asInstanceOf[Any], buf)
+  def fromBinary(buf: ByteBuffer, manifest: String): AnyRef = fromBinaryInternal(buf, Some(manifest))
 }
