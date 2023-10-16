@@ -51,7 +51,7 @@ class AkkaCompatSerializerTest extends TestKit(ActorSystem("testSystem", ConfigF
 
   behavior of "ActorRefSerializer"
 
-  it should "serialize and deserialize actorRef" in {
+  it should "deserialize actorRef from Akka" in {
     // create actor with path to not get deadLetter ref
     system.actorOf(Props(new Actor { def receive: Receive = PartialFunction.empty }), "sampleActor")
 
