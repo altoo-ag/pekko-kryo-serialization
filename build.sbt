@@ -26,7 +26,7 @@ lazy val root: Project = project.in(file("."))
   .settings(publish / skip := true)
   .settings(OsgiKeys.privatePackage := Nil)
   .settings(OsgiKeys.exportPackage := Seq("io.altoo.*"))
-  .aggregate(core, typed)
+  .aggregate(core, typed, akkaCompat)
 
 lazy val core: Project = Project("pekko-kryo-serialization", file("pekko-kryo-serialization"))
   .settings(moduleSettings)
@@ -53,6 +53,12 @@ lazy val typed: Project = Project("pekko-kryo-serialization-typed", file("pekko-
   .settings(libraryDependencies ++= typedDeps ++ testingDeps)
   .dependsOn(core)
 
+lazy val akkaCompat: Project = Project("pekko-kryo-serialization-akka-compat", file("pekko-kryo-serialization-akka-compat"))
+  .settings(moduleSettings)
+  .settings(description := "pekko-serialization implementation using kryo - extension for improved wire compatibility with Akka")
+  .settings(libraryDependencies ++= testingDeps)
+  .dependsOn(core, typed)
+
 // Dependencies
 lazy val coreDeps = Seq(
   "io.altoo" %% "scala-kryo-serialization" % scalaKryoVersion,
@@ -61,6 +67,7 @@ lazy val coreDeps = Seq(
   "org.lz4" % "lz4-java" % "1.8.0",
   "commons-io" % "commons-io" % "2.11.0" % Test,
   "org.scala-lang.modules" %% "scala-collection-compat" % "2.9.0")
+
 lazy val typedDeps = Seq(
   "org.apache.pekko" %% "pekko-actor-typed" % pekkoVersion,
   "org.apache.pekko" %% "pekko-actor-testkit-typed" % pekkoVersion % Test)

@@ -16,23 +16,24 @@
  * ****************************************************************************
  */
 
-package io.altoo.serialization.kryo.pekko.serializer
+package io.altoo.pekko.serialization.kryo.compat.serializer
 
-import org.apache.pekko.actor.{ActorRef, ExtendedActorSystem}
-import org.apache.pekko.serialization.Serialization
 import com.esotericsoftware.kryo.io.{Input, Output}
 import com.esotericsoftware.kryo.{Kryo, Serializer}
+import org.apache.pekko.actor.{ActorRef, ExtendedActorSystem}
+import org.apache.pekko.serialization.Serialization
 
 /**
  * Specialized serializer for actor refs.
  *
  * @author Roman Levenstein
  */
-class ActorRefSerializer(val system: ExtendedActorSystem) extends Serializer[ActorRef] {
+class CompatActorRefSerializer(val system: ExtendedActorSystem) extends Serializer[ActorRef] {
 
   override def read(kryo: Kryo, input: Input, typ: Class[? <: ActorRef]): ActorRef = {
     val path = input.readString()
-    system.provider.resolveActorRef(path)
+    val newPath = path.replace("akka://", "pekko://")
+    system.provider.resolveActorRef(newPath)
   }
 
   override def write(kryo: Kryo, output: Output, obj: ActorRef): Unit = {
