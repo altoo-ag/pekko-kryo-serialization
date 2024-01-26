@@ -1,14 +1,14 @@
 package io.altoo.serialization.kryo.pekko
 
-import com.esotericsoftware.kryo.util.*
+import com.esotericsoftware.kryo.kryo5.objenesis.strategy.StdInstantiatorStrategy
+import com.esotericsoftware.kryo.kryo5.util.*
 import com.typesafe.config.{Config, ConfigFactory}
 import io.altoo.serialization.kryo.pekko.serializer.scala.*
 import io.altoo.serialization.kryo.pekko.testkit.{AbstractPekkoTest, KryoSerializationTesting}
-import io.altoo.serialization.kryo.scala.{DefaultKeyProvider, KryoCryptographer}
 import io.altoo.serialization.kryo.scala.serializer.ScalaKryo
+import io.altoo.serialization.kryo.scala.{DefaultKeyProvider, KryoCryptographer}
 import org.apache.pekko.actor.ExtendedActorSystem
 import org.apache.pekko.serialization.{ByteBufferSerializer, SerializationExtension}
-import org.objenesis.strategy.StdInstantiatorStrategy
 
 import java.nio.ByteBuffer
 import scala.collection.immutable.HashMap

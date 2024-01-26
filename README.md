@@ -45,6 +45,7 @@ We provide several versions of the library:
 
 Version | Akka & Kryo Compatibility | Available Scala Versions | Tested with                                                                  |
 --------|---------------------------|--------------------------|------------------------------------------------------------------------------|
+v1.2.x  | Pekko-1.0 and Kryo-5.6    | 2.12,2.13,3.1            | JDK: OpenJdk11,OpenJdk17,OpenJdk21 Scala: 2.12.17,2.13.10,3.3.1 Pekko: 1.0.2 |
 v1.1.x  | Pekko-1.0 and Kryo-5.5    | 2.12,2.13,3.1            | JDK: OpenJdk11,OpenJdk17,OpenJdk21 Scala: 2.12.17,2.13.10,3.3.1 Pekko: 1.0.1 |
 v1.0.x  | Pekko-1.0 and Kryo-5.4    | 2.12,2.13,3.1            | JDK: OpenJdk11,OpenJdk17           Scala: 2.12.17,2.13.10,3.3.1 Pekko: 1.0.1 |
 

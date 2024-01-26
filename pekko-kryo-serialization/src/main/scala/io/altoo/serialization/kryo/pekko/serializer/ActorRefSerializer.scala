@@ -20,8 +20,8 @@ package io.altoo.serialization.kryo.pekko.serializer
 
 import org.apache.pekko.actor.{ActorRef, ExtendedActorSystem}
 import org.apache.pekko.serialization.Serialization
-import com.esotericsoftware.kryo.io.{Input, Output}
-import com.esotericsoftware.kryo.{Kryo, Serializer}
+import com.esotericsoftware.kryo.kryo5.io.{Input, Output}
+import com.esotericsoftware.kryo.kryo5.{Kryo, Serializer}
 
 /**
  * Specialized serializer for actor refs.
