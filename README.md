@@ -58,7 +58,7 @@ Note that we use semantic versioning - see [semver.org](https://semver.org/).
 To use the latest stable release of pekko-kryo-serialization in sbt projects you just need to add
 this dependency:
 
-`libraryDependencies += "io.altoo" %% "pekko-kryo-serialization" % "1.1.0"`
+`libraryDependencies += "io.altoo" %% "pekko-kryo-serialization" % "1.2.0"`
 
 #### maven projects
 
@@ -77,7 +77,7 @@ To use the official release of pekko-kryo-serialization in Maven projects, pleas
     <dependency>
         <groupId>io.altoo</groupId>
         <artifactId>pekko-kryo-serialization_2.13</artifactId>
-        <version>1.1.0</version>
+        <version>1.2.0</version>
     </dependency>
 ```
 
