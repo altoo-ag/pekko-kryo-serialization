@@ -12,19 +12,19 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
+ */
 
 package io.altoo.serialization.kryo.pekko
 
-import org.apache.pekko.actor.ActorSystem
-import org.apache.pekko.serialization.{Serialization, _}
-import com.esotericsoftware.minlog.Log
+import com.esotericsoftware.kryo.kryo5.minlog.Log
 import com.typesafe.config.ConfigFactory
 import io.altoo.serialization.kryo.pekko.serializer.scala.ScalaVersionRegistry
-import org.scalatest.{BeforeAndAfterAll, Inside}
+import org.apache.pekko.actor.ActorSystem
+import org.apache.pekko.serialization.*
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import org.scalatest.{BeforeAndAfterAll, Inside}
 
 import java.nio.ByteBuffer
 import scala.util.Try
@@ -95,8 +95,7 @@ class CompressionEffectivenessSerializationTest extends AnyFlatSpec with Matcher
 
   private val systemWithCompression = ActorSystem("exampleWithCompression",
     ConfigFactory.parseString(CompressionEffectivenessSerializationTest.compressionConfig)
-        .withFallback(ConfigFactory.parseString(CompressionEffectivenessSerializationTest.config))
-  )
+      .withFallback(ConfigFactory.parseString(CompressionEffectivenessSerializationTest.config)))
 
   // Get the Serialization Extension
   private val serialization = SerializationExtension(system)
@@ -106,7 +105,6 @@ class CompressionEffectivenessSerializationTest extends AnyFlatSpec with Matcher
     system.terminate()
     systemWithCompression.terminate()
   }
-
 
   behavior of "KryoSerializer compression"
 
@@ -120,7 +118,7 @@ class CompressionEffectivenessSerializationTest extends AnyFlatSpec with Matcher
 
   it should "produce smaller serialized huge List representation when compression is enabled" in {
     var testList = List.empty[String]
-    0 until hugeCollectionSize foreach { i => testList = ("k" + i) :: testList }
+    (0 until hugeCollectionSize).foreach { i => testList = ("k" + i) :: testList }
     val uncompressedSize = serializeDeserialize(serialization, testList)
     val compressedSize = serializeDeserialize(serializationWithCompression, testList)
     (compressedSize.doubleValue() / uncompressedSize) should be < 0.7
@@ -130,7 +128,7 @@ class CompressionEffectivenessSerializationTest extends AnyFlatSpec with Matcher
 
   it should "produce smaller serialized huge Map representation when compression is enabled" in {
     var testMap: Map[String, String] = Map.empty[String, String]
-    0 until hugeCollectionSize foreach { i => testMap += ("k" + i) -> ("v" + i) }
+    (0 until hugeCollectionSize).foreach { i => testMap += ("k" + i) -> ("v" + i) }
     val uncompressedSize = serializeDeserialize(serialization, testMap)
     val compressedSize = serializeDeserialize(serializationWithCompression, testMap)
     (compressedSize.doubleValue() / uncompressedSize) should be < 0.8
@@ -148,7 +146,7 @@ class CompressionEffectivenessSerializationTest extends AnyFlatSpec with Matcher
 
   it should "produce smaller serialized huge Seq representation when compression is enabled" in {
     var testSeq = Seq[String]()
-    0 until hugeCollectionSize foreach { i => testSeq = testSeq :+ ("k" + i) }
+    (0 until hugeCollectionSize).foreach { i => testSeq = testSeq :+ ("k" + i) }
     val uncompressedSize = serializeDeserialize(serialization, testSeq)
     val compressedSize = serializeDeserialize(serializationWithCompression, testSeq)
     (compressedSize.doubleValue() / uncompressedSize) should be < 0.8
@@ -158,7 +156,7 @@ class CompressionEffectivenessSerializationTest extends AnyFlatSpec with Matcher
 
   it should "produce smaller serialized huge Set representation when compression is enabled" in {
     var testSet = Set.empty[String]
-    0 until hugeCollectionSize foreach { i => testSet += ("k" + i) }
+    (0 until hugeCollectionSize).foreach { i => testSet += ("k" + i) }
     val uncompressedSize = serializeDeserialize(serialization, testSet)
     val compressedSize = serializeDeserialize(serializationWithCompression, testSet)
     (compressedSize.doubleValue() / uncompressedSize) should be < 0.7
@@ -186,7 +184,7 @@ class CompressionEffectivenessSerializationTest extends AnyFlatSpec with Matcher
 
     val bb = ByteBuffer.allocate(2 * serialized.get.length)
     val bufferSerialized = Try(bufferSerializer.toBinary(obj, bb))
-    bufferSerialized shouldBe a[util.Success[_]]
+    bufferSerialized shouldBe a[util.Success[?]]
     bb.position() shouldBe serialized.get.length
 
     bb.flip()
