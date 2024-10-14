@@ -4,11 +4,11 @@ import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 // Basics
 
 // note: keep in sync to pekko https://github.com/apache/incubator-pekko/blob/main/project/Dependencies.scala
-val mainScalaVersion = "3.3.1"
-val secondaryScalaVersions = Seq("2.12.18", "2.13.12")
+val mainScalaVersion = "3.3.4"
+val secondaryScalaVersions = Seq("2.12.20", "2.13.14")
 
 val scalaKryoVersion = "1.2.0"
-val defaultPekkoVersion = "1.0.2"
+val defaultPekkoVersion = "1.1.2"
 val pekkoVersion =
   System.getProperty("pekko.build.version", defaultPekkoVersion) match {
     case "default" => defaultPekkoVersion
@@ -63,10 +63,7 @@ lazy val akkaCompat: Project = Project("pekko-kryo-serialization-akka-compat", f
 lazy val coreDeps = Seq(
   "io.altoo" %% "scala-kryo-serialization" % scalaKryoVersion,
   "org.apache.pekko" %% "pekko-actor" % pekkoVersion,
-  "org.agrona" % "agrona" % "1.15.1", // should match pekko-remote/aeron inherited version
-  "org.lz4" % "lz4-java" % "1.8.0",
-  "commons-io" % "commons-io" % "2.11.0" % Test,
-  "org.scala-lang.modules" %% "scala-collection-compat" % "2.9.0")
+  "commons-io" % "commons-io" % "2.17.0" % Test)
 
 lazy val typedDeps = Seq(
   "org.apache.pekko" %% "pekko-actor-typed" % pekkoVersion,
