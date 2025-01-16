@@ -45,12 +45,13 @@ We provide several versions of the library:
 
 Version | Akka & Kryo Compatibility | Available Scala Versions | Tested with                                                                  |
 --------|---------------------------|--------------------------|------------------------------------------------------------------------------|
-v1.2.x  | Pekko-1.0 and Kryo-5.6    | 2.12,2.13,3.1            | JDK: OpenJdk11,OpenJdk17,OpenJdk21 Scala: 2.12.17,2.13.10,3.3.1 Pekko: 1.0.2 |
+v1.2.x  | Pekko-1.1 and Kryo-5.6    | 2.12,2.13,3.1            | JDK: OpenJdk11,OpenJdk17,OpenJdk21 Scala: 2.12.20,2.13.16,3.3.4 Pekko: 1.1.3 |
 v1.1.x  | Pekko-1.0 and Kryo-5.5    | 2.12,2.13,3.1            | JDK: OpenJdk11,OpenJdk17,OpenJdk21 Scala: 2.12.17,2.13.10,3.3.1 Pekko: 1.0.1 |
 v1.0.x  | Pekko-1.0 and Kryo-5.4    | 2.12,2.13,3.1            | JDK: OpenJdk11,OpenJdk17           Scala: 2.12.17,2.13.10,3.3.1 Pekko: 1.0.1 |
 
 
 Note that we use semantic versioning - see [semver.org](https://semver.org/).
+Pekko 1.1 is binary compatible to 1.0 see [pekko docs](https://pekko.apache.org/docs/pekko/1.1/migration/migration-guide-1.0.x-1.1.x.html)
 
 
 #### sbt projects
