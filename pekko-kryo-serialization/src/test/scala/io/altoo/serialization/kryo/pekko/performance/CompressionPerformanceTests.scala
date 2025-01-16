@@ -7,6 +7,7 @@ import org.apache.pekko.serialization.*
 import org.scalatest.*
 import org.scalatest.flatspec.AnyFlatSpec
 
+import scala.annotation.nowarn
 import scala.collection.immutable.{HashMap, TreeMap}
 import scala.collection.mutable.{AnyRefMap, LongMap}
 
@@ -15,6 +16,7 @@ object CompressionPerformanceTests {
     (new PerformanceTests).execute()
   }
 
+  @nowarn("cat=deprecation")
   private class PerformanceTests extends AnyFlatSpec with BeforeAndAfterAllConfigMap {
     private val defaultConfig = ConfigFactory.parseString(
       """
@@ -23,7 +25,7 @@ object CompressionPerformanceTests {
           allow-java-serialization = true
 
           serializers {
-            java = "org.apache.pekkoserialization.JavaSerializer"
+            java = "org.apache.pekko.serialization.JavaSerializer"
             kryo = "io.altoo.serialization.kryo.pekko.PekkoKryoSerializer"
           }
 
@@ -572,7 +574,7 @@ object CompressionPerformanceTests {
         |pekko-kryo-serialization.post-serialization-transformations = lz4
     """.stripMargin)
     testConfig("Java",
-      """org.apache.pekko.actor.serialization-bindings {
+      """pekko.actor.serialization-bindings {
         |"scala.Product" = java
         |"org.apache.pekko.actor.ActorRef" = java
         |"scala.collection.immutable.TreeMap" = java

@@ -5,10 +5,10 @@ import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 
 // note: keep in sync to pekko https://github.com/apache/incubator-pekko/blob/main/project/Dependencies.scala
 val mainScalaVersion = "3.3.4"
-val secondaryScalaVersions = Seq("2.12.20", "2.13.14")
+val secondaryScalaVersions = Seq("2.12.20", "2.13.16")
 
-val scalaKryoVersion = "1.2.0"
-val defaultPekkoVersion = "1.1.2"
+val scalaKryoVersion = "1.2.1"
+val defaultPekkoVersion = "1.1.3"
 val pekkoVersion =
   System.getProperty("pekko.build.version", defaultPekkoVersion) match {
     case "default" => defaultPekkoVersion
@@ -63,15 +63,15 @@ lazy val akkaCompat: Project = Project("pekko-kryo-serialization-akka-compat", f
 lazy val coreDeps = Seq(
   "io.altoo" %% "scala-kryo-serialization" % scalaKryoVersion,
   "org.apache.pekko" %% "pekko-actor" % pekkoVersion,
-  "commons-io" % "commons-io" % "2.17.0" % Test)
+  "commons-io" % "commons-io" % "2.18.0" % Test)
 
 lazy val typedDeps = Seq(
   "org.apache.pekko" %% "pekko-actor-typed" % pekkoVersion,
   "org.apache.pekko" %% "pekko-actor-testkit-typed" % pekkoVersion % Test)
 
 lazy val testingDeps = Seq(
-  "org.scalatest" %% "scalatest" % "3.2.14" % Test,
-  "ch.qos.logback" % "logback-classic" % "1.2.11" % Test,
+  "org.scalatest" %% "scalatest" % "3.2.19" % Test,
+  "ch.qos.logback" % "logback-classic" % "1.5.16" % Test,
   "org.apache.pekko" %% "pekko-testkit" % pekkoVersion % Test,
   "org.apache.pekko" %% "pekko-persistence" % pekkoVersion % Test)
 
