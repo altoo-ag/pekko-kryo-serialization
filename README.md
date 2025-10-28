@@ -154,7 +154,7 @@ the assigned class IDs are the same for senders and for receivers!
 How to customize kryo initialization
 ------------------------------------
 
-To further customize kryo you can extend the `io.altoo.pekko.serialization.kryo.DefaultKryoInitializer` and 
+To further customize kryo you can extend the `io.altoo.serialization.kryo.pekko.DefaultKryoInitializer` and 
 configure the FQCN under `pekko-kryo-serialization.kryo-initializer`.
 
 #### Configuring default field serializers
