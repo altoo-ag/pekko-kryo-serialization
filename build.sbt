@@ -3,11 +3,11 @@ import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 
 // Basics
 
-// note: keep in sync to pekko https://github.com/apache/incubator-pekko/blob/main/project/Dependencies.scala
-val mainScalaVersion = "3.3.5"
-val secondaryScalaVersions = Seq("2.12.20", "2.13.16")
+// note: keep in sync to pekko https://github.com/apache/pekko/blob/main/project/Dependencies.scala
+val mainScalaVersion = "3.3.7"
+val secondaryScalaVersions = Seq("2.12.21", "2.13.18")
 
-val scalaKryoVersion = "1.3.0"
+val scalaKryoVersion = "1.3.1"
 val defaultPekkoVersion = "1.1.3"
 val pekkoVersion =
   System.getProperty("pekko.build.version", defaultPekkoVersion) match {

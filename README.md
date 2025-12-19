@@ -23,7 +23,7 @@ Features
 * Does not require any additional build steps like compiling proto files, when using protobuf serialization
 * Almost any Scala and Java class can be serialized using it without any additional configuration or code changes
 * Efficient serialization of such Scala types like Option, Tuple, Enumeration, most of Scala's collection types
-* Greatly improves performance of Akka's remoting
+* Greatly improves performance of Pekko's remoting
 * Supports transparent AES encryption and different modes of compression
 * Apache 2.0 license
 
