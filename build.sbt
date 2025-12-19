@@ -68,7 +68,7 @@ lazy val akkaCompat: Project = Project("pekko-kryo-serialization-akka-compat", f
 lazy val coreDeps = Seq(
   "io.altoo" %% "scala-kryo-serialization" % scalaKryoVersion,
   "org.apache.pekko" %% "pekko-actor" % pekkoVersion,
-  "commons-io" % "commons-io" % "2.18.0" % Test)
+  "commons-io" % "commons-io" % "2.21.0" % Test)
 
 lazy val typedDeps = Seq(
   "org.apache.pekko" %% "pekko-actor-typed" % pekkoVersion,
@@ -76,7 +76,7 @@ lazy val typedDeps = Seq(
 
 lazy val testingDeps = Seq(
   "org.scalatest" %% "scalatest" % "3.2.19" % Test,
-  "ch.qos.logback" % "logback-classic" % "1.5.16" % Test,
+  "ch.qos.logback" % "logback-classic" % "1.5.22" % Test,
   "org.apache.pekko" %% "pekko-testkit" % pekkoVersion % Test,
   "org.apache.pekko" %% "pekko-persistence" % pekkoVersion % Test)
 
