@@ -8,6 +8,9 @@ val mainScalaVersion = "3.3.7"
 val secondaryScalaVersions = Seq("2.12.21", "2.13.18")
 
 val scalaKryoVersion = "1.3.1"
+
+// use 1.1.x versions so that users can easily get the version they choose without need to overwrite what we provide/depend on
+// we test with the latest compatible when creating a release to ensure compatibility
 val defaultPekkoVersion = "1.1.5"
 val pekkoVersion =
   System.getProperty("pekko.build.version", defaultPekkoVersion) match {

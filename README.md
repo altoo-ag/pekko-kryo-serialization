@@ -43,7 +43,7 @@ These are the latest versions and their compatibility, requirements and testing 
 
 | Version | Compatibility       | Kryo used | Available Scala Versions | Tested with |
 |---------|---------------------|-----------|--------------------------|-------------|
-| v1.4.x  | Pekko-1.x JDK >= 11 | 5.6.2     | 2.12, 2.13, 3.1          | JDK: OpenJdk11, OpenJdk17, OpenJdk21, OpenJdk25; Scala: 2.12.21, 2.13.18, 3.3.7; Pekko: 1.1.5, 1.4.0 |
+| v1.3.2  | Pekko-1.x JDK >= 11 | 5.6.2     | 2.12, 2.13, 3.1          | JDK: OpenJdk11, OpenJdk17, OpenJdk21, OpenJdk25; Scala: 2.12.21, 2.13.18, 3.3.7; Pekko: 1.1.5, 1.4.0 |
 | v1.3.x  | Pekko-1.x JDK >= 11 | 5.6.2     | 2.12, 2.13, 3.1          | JDK: OpenJdk11, OpenJdk17, OpenJdk21; Scala: 2.12.20, 2.13.16, 3.3.5; Pekko: 1.1.3 |
 | v1.2.x  | Pekko-1.x JDK >= 11 | 5.6.2     | 2.12, 2.13, 3.1          | JDK: OpenJdk11, OpenJdk17, OpenJdk21; Scala: 2.12.20, 2.13.16, 3.3.4; Pekko: 1.1.3 |
 | v1.1.x  | Pekko-1.0 JDK >= 11 | 5.5.x     | 2.12, 2.13, 3.1          | JDK: OpenJdk11, OpenJdk17, OpenJdk21; Scala: 2.12.17, 2.13.10, 3.3.1; Pekko: 1.0.1 |
