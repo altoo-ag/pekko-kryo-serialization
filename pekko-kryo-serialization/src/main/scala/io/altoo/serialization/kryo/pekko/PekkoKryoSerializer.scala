@@ -4,10 +4,14 @@ import io.altoo.serialization.kryo.scala
 import io.altoo.serialization.kryo.scala.KryoSerializer
 import org.apache.pekko.actor.ExtendedActorSystem
 import org.apache.pekko.serialization.{ByteBufferSerializer, Serializer}
+import org.slf4j.LoggerFactory
 
 import java.nio.ByteBuffer
 
 class PekkoKryoSerializer(val system: ExtendedActorSystem) extends KryoSerializer(system.settings.config, system.dynamicAccess.classLoader) with Serializer with ByteBufferSerializer {
+  private val log = LoggerFactory.getLogger(getClass)
+  log.debug(s"Started serializer for actor system using pekko:${org.apache.pekko.Version.current}")
+
   override protected def configKey: String = "pekko-kryo-serialization"
   override protected[kryo] val useManifest: Boolean = system.settings.config.getBoolean(s"$configKey.use-manifests")
   override protected[kryo] def prepareKryoInitializer(initializer: scala.DefaultKryoInitializer): Unit = initializer match {

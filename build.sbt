@@ -8,12 +8,17 @@ val mainScalaVersion = "3.3.7"
 val secondaryScalaVersions = Seq("2.12.21", "2.13.18")
 
 val scalaKryoVersion = "1.3.1"
-val defaultPekkoVersion = "1.1.3"
+
+// use 1.1.x versions so that users can easily get the version they choose without need to overwrite what we provide/depend on
+// we test with the latest compatible when creating a release to ensure compatibility
+val defaultPekkoVersion = "1.1.5"
 val pekkoVersion =
   System.getProperty("pekko.build.version", defaultPekkoVersion) match {
     case "default" => defaultPekkoVersion
+    case "latest" => "1.4.0"
     case x         => x
   }
+
 enablePlugins(SbtOsgi, ReleasePlugin)
 addCommandAlias("validatePullRequest", ";+test")
 
@@ -63,7 +68,7 @@ lazy val akkaCompat: Project = Project("pekko-kryo-serialization-akka-compat", f
 lazy val coreDeps = Seq(
   "io.altoo" %% "scala-kryo-serialization" % scalaKryoVersion,
   "org.apache.pekko" %% "pekko-actor" % pekkoVersion,
-  "commons-io" % "commons-io" % "2.18.0" % Test)
+  "commons-io" % "commons-io" % "2.21.0" % Test)
 
 lazy val typedDeps = Seq(
   "org.apache.pekko" %% "pekko-actor-typed" % pekkoVersion,
@@ -71,7 +76,7 @@ lazy val typedDeps = Seq(
 
 lazy val testingDeps = Seq(
   "org.scalatest" %% "scalatest" % "3.2.19" % Test,
-  "ch.qos.logback" % "logback-classic" % "1.5.16" % Test,
+  "ch.qos.logback" % "logback-classic" % "1.5.22" % Test,
   "org.apache.pekko" %% "pekko-testkit" % pekkoVersion % Test,
   "org.apache.pekko" %% "pekko-persistence" % pekkoVersion % Test)
 
