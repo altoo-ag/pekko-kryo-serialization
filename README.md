@@ -16,8 +16,7 @@ see [scala-kryo-serialization](https://github.com/altoo-ag/scala-kryo-serializat
 For upgrading from previous versions see [migration-guide](migration-guide.md). 
 
 
-Features
---------
+# Features
 
 * It is more efficient than Java serialization - both in size and speed
 * Does not require any additional build steps (unlike e.g. compiling proto files, when using protobuf serialization)
@@ -31,36 +30,38 @@ Note that this serializer is mainly intended to be used for pekko-remoting and n
 The underlying kryo serializer does not guarantee compatibility between major versions.
 
 
-How to use this library in your project
----------------------------------------
+# How to use this library in your project
 
 To use this serializer, you need to do two things:
 
-* Include a dependency on this library into your project:
-    `libraryDependencies += "io.altoo" %% "pekko-kryo-serialization" % "1.3.0"`
+* Include a dependency on this library into your project. See [Dependency](#Dependency)
+* Register and configure the serializer in your Pekko configuration file, e.g. `application.conf`. See [Configuration of pekko-kryo-serialization](#Configuration-of-pekko-kryo-serialization)
 
-* Register and configure the serializer in your Akka configuration file, e.g. `application.conf`.
+# Versions
 
-We provide several versions of the library:
+These are the latest versions and their compatibility, requirements and testing guarantees. 
 
-Version | Akka & Kryo Compatibility | Available Scala Versions | Tested with                                                                  |
---------|---------------------------|--------------------------|------------------------------------------------------------------------------|
-v1.3.x  | Pekko-1.x and Kryo-5.6    | 2.12,2.13,3.1            | JDK: OpenJdk11,OpenJdk17,OpenJdk21 Scala: 2.12.20,2.13.16,3.3.5 Pekko: 1.1.3 |
-v1.2.x  | Pekko-1.1 and Kryo-5.6    | 2.12,2.13,3.1            | JDK: OpenJdk11,OpenJdk17,OpenJdk21 Scala: 2.12.20,2.13.16,3.3.4 Pekko: 1.1.3 |
-v1.1.x  | Pekko-1.0 and Kryo-5.5    | 2.12,2.13,3.1            | JDK: OpenJdk11,OpenJdk17,OpenJdk21 Scala: 2.12.17,2.13.10,3.3.1 Pekko: 1.0.1 |
-v1.0.x  | Pekko-1.0 and Kryo-5.4    | 2.12,2.13,3.1            | JDK: OpenJdk11,OpenJdk17           Scala: 2.12.17,2.13.10,3.3.1 Pekko: 1.0.1 |
+| Version | Compatibility       | Kryo used | Available Scala Versions | Tested with |
+|---------|---------------------|-----------|--------------------------|-------------|
+| v1.4.x  | Pekko-1.x JDK >= 11 | 5.6.2     | 2.12, 2.13, 3.1          | JDK: OpenJdk11, OpenJdk17, OpenJdk21, OpenJdk25; Scala: 2.12.21, 2.13.18, 3.3.7; Pekko: 1.1.5, 1.4.0 |
+| v1.3.x  | Pekko-1.x JDK >= 11 | 5.6.2     | 2.12, 2.13, 3.1          | JDK: OpenJdk11, OpenJdk17, OpenJdk21; Scala: 2.12.20, 2.13.16, 3.3.5; Pekko: 1.1.3 |
+| v1.2.x  | Pekko-1.x JDK >= 11 | 5.6.2     | 2.12, 2.13, 3.1          | JDK: OpenJdk11, OpenJdk17, OpenJdk21; Scala: 2.12.20, 2.13.16, 3.3.4; Pekko: 1.1.3 |
+| v1.1.x  | Pekko-1.0 JDK >= 11 | 5.5.x     | 2.12, 2.13, 3.1          | JDK: OpenJdk11, OpenJdk17, OpenJdk21; Scala: 2.12.17, 2.13.10, 3.3.1; Pekko: 1.0.1 |
+| v1.0.x  | Pekko-1.0 JDK >= 11 | 5.4.x     | 2.12, 2.13, 3.1          | JDK: OpenJdk11, OpenJdk17; Scala: 2.12.17, 2.13.10, 3.3.1; Pekko: 1.0.1 |
 
 
 Note that we use semantic versioning - see [semver.org](https://semver.org/).
 Pekko 1.x is binary compatible to 1.0 see [pekko docs](https://pekko.apache.org/docs/pekko/1.1/migration/migration-guide-1.0.x-1.1.x.html)
 
 
+### Dependency
+
 #### sbt projects
 
 To use the latest stable release of pekko-kryo-serialization in sbt projects you just need to add
 this dependency:
 
-`libraryDependencies += "io.altoo" %% "pekko-kryo-serialization" % "1.2.0"`
+`libraryDependencies += "io.altoo" %% "pekko-kryo-serialization" % "1.x.x"`
 
 #### maven projects
 
@@ -79,7 +80,7 @@ To use the official release of pekko-kryo-serialization in Maven projects, pleas
     <dependency>
         <groupId>io.altoo</groupId>
         <artifactId>pekko-kryo-serialization_2.13</artifactId>
-        <version>1.3.0</version>
+        <version>1.x.x</version>
     </dependency>
 ```
 
@@ -87,7 +88,7 @@ For snapshots see [Snapshots.md](Snapshots.md)
 
 
 Configuration of pekko-kryo-serialization
-----------------------------------------------
+-----------------------------------------
 
 The following options are available for configuring this serializer:
 

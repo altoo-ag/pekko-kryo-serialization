@@ -8,12 +8,14 @@ val mainScalaVersion = "3.3.7"
 val secondaryScalaVersions = Seq("2.12.21", "2.13.18")
 
 val scalaKryoVersion = "1.3.1"
-val defaultPekkoVersion = "1.1.3"
+val defaultPekkoVersion = "1.1.5"
 val pekkoVersion =
   System.getProperty("pekko.build.version", defaultPekkoVersion) match {
     case "default" => defaultPekkoVersion
+    case "latest" => "1.4.0"
     case x         => x
   }
+
 enablePlugins(SbtOsgi, ReleasePlugin)
 addCommandAlias("validatePullRequest", ";+test")
 
