@@ -8,10 +8,10 @@ Pekko Kryo Serialization is a fork of [Akka Kryo Serialization](https://github.c
 [![Latest version](https://index.scala-lang.org/altoo-ag/pekko-kryo-serialization/pekko-kryo-serialization/latest.svg)](https://index.scala-lang.org/altoo-ag/pekko-kryo-serialization/pekko-kryo-serialization)
 
 This library provides custom [Kryo](https://github.com/EsotericSoftware/kryo)-based serializers for Scala and Pekko. It can be
-used for more efficient [pekko](https://github.com/apache/incubator-pekko) actor remoting.
+used for more efficient [pekko](https://github.com/apache/pekko) actor remoting with close to no manual work necessary.
 
-It can also be used for a general purpose and very efficient Kryo-based serialization
-of such Scala types like Option, Tuple, Enumeration and most of Scala's collection types.
+For general purpose and very efficient Kryo-based serialization of Scala types like Option, Tuple, Enumeration and most of Scala's collection types 
+see [scala-kryo-serialization](https://github.com/altoo-ag/scala-kryo-serialization). Pekko-kryo-serialization builds upon Scala-kryo-serialization.
 
 For upgrading from previous versions see [migration-guide](migration-guide.md). 
 
@@ -20,10 +20,10 @@ Features
 --------
 
 * It is more efficient than Java serialization - both in size and speed
-* Does not require any additional build steps like compiling proto files, when using protobuf serialization
+* Does not require any additional build steps (unlike e.g. compiling proto files, when using protobuf serialization)
 * Almost any Scala and Java class can be serialized using it without any additional configuration or code changes
-* Efficient serialization of such Scala types like Option, Tuple, Enumeration, most of Scala's collection types
-* Greatly improves performance of Akka's remoting
+* Efficient serialization of Scala types like Option, Tuple, Enumeration, most of Scala's collection types
+* Greatly improves performance of Pekko's remoting
 * Supports transparent AES encryption and different modes of compression
 * Apache 2.0 license
 
@@ -45,14 +45,14 @@ We provide several versions of the library:
 
 Version | Akka & Kryo Compatibility | Available Scala Versions | Tested with                                                                  |
 --------|---------------------------|--------------------------|------------------------------------------------------------------------------|
-v1.3.x  | Pekko-1.1 and Kryo-5.6    | 2.12,2.13,3.1            | JDK: OpenJdk11,OpenJdk17,OpenJdk21 Scala: 2.12.20,2.13.16,3.3.5 Pekko: 1.1.3 |
+v1.3.x  | Pekko-1.x and Kryo-5.6    | 2.12,2.13,3.1            | JDK: OpenJdk11,OpenJdk17,OpenJdk21 Scala: 2.12.20,2.13.16,3.3.5 Pekko: 1.1.3 |
 v1.2.x  | Pekko-1.1 and Kryo-5.6    | 2.12,2.13,3.1            | JDK: OpenJdk11,OpenJdk17,OpenJdk21 Scala: 2.12.20,2.13.16,3.3.4 Pekko: 1.1.3 |
 v1.1.x  | Pekko-1.0 and Kryo-5.5    | 2.12,2.13,3.1            | JDK: OpenJdk11,OpenJdk17,OpenJdk21 Scala: 2.12.17,2.13.10,3.3.1 Pekko: 1.0.1 |
 v1.0.x  | Pekko-1.0 and Kryo-5.4    | 2.12,2.13,3.1            | JDK: OpenJdk11,OpenJdk17           Scala: 2.12.17,2.13.10,3.3.1 Pekko: 1.0.1 |
 
 
 Note that we use semantic versioning - see [semver.org](https://semver.org/).
-Pekko 1.1 is binary compatible to 1.0 see [pekko docs](https://pekko.apache.org/docs/pekko/1.1/migration/migration-guide-1.0.x-1.1.x.html)
+Pekko 1.x is binary compatible to 1.0 see [pekko docs](https://pekko.apache.org/docs/pekko/1.1/migration/migration-guide-1.0.x-1.1.x.html)
 
 
 #### sbt projects
