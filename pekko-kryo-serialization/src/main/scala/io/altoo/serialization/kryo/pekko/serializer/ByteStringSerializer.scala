@@ -23,22 +23,18 @@ import com.esotericsoftware.kryo.kryo5.io.{Input, Output}
 import com.esotericsoftware.kryo.kryo5.{Kryo, Serializer}
 
 /**
- * *
- *
- * Generic serializer for traversable collections
- *
- * @author luben
+ * Serializer for pekko [[ByteString]]
  */
 class ByteStringSerializer() extends Serializer[ByteString] {
 
   override def read(kryo: Kryo, input: Input, typ: Class[? <: ByteString]): ByteString = {
     val len = input.readInt(true)
-    ByteString(input.readBytes(len))
+    ByteString.fromArrayUnsafe(input.readBytes(len)) //input.readBytes already creates a copy of the byte[]
   }
 
   override def write(kryo: Kryo, output: Output, obj: ByteString): Unit = {
     val len = obj.size
     output.writeInt(len, true)
-    obj.foreach { output.writeByte }
+    output.writeBytes(obj.toArrayUnsafe()) //writeBytes anyway copies byte[]
   }
 }
