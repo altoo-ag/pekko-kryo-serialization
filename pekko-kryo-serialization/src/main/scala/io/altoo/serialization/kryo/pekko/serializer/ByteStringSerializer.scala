@@ -28,11 +28,10 @@ import com.esotericsoftware.kryo.kryo5.{Kryo, Serializer}
  * Generic serializer for traversable collections
  *
  * @author luben
- *
  */
 class ByteStringSerializer() extends Serializer[ByteString] {
 
-  override def read(kryo: Kryo, input: Input, typ: Class[_ <: ByteString]): ByteString = {
+  override def read(kryo: Kryo, input: Input, typ: Class[? <: ByteString]): ByteString = {
     val len = input.readInt(true)
     ByteString(input.readBytes(len))
   }
@@ -43,4 +42,3 @@ class ByteStringSerializer() extends Serializer[ByteString] {
     obj.foreach { output.writeByte }
   }
 }
-

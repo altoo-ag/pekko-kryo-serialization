@@ -4,7 +4,7 @@ import org.apache.pekko.actor.ActorSystem
 import org.apache.pekko.serialization.SerializationExtension
 import org.apache.pekko.testkit.TestKit
 import com.typesafe.config.ConfigFactory
-import org.scalatest._
+import org.scalatest.*
 import org.scalatest.flatspec.AnyFlatSpecLike
 
 object Time extends Enumeration {
@@ -36,7 +36,7 @@ object EnumPerformanceTests {
   """
 
   class PerformanceTests extends TestKit(ActorSystem("testSystem", ConfigFactory.parseString(EnumPerformanceTests.defaultConfig))) with AnyFlatSpecLike with BeforeAndAfterAllConfigMap {
-    import Time._
+    import Time.*
 
     private val serialization = SerializationExtension(system)
 
@@ -51,13 +51,12 @@ object EnumPerformanceTests {
       println(f"$name%s:\t$ms%.1f\tms\t=\t${loops * 1000 / ms}%.0f\tops/s")
     }
 
-
     behavior of "Enumeration serialization"
 
     it should "be fast" in {
       val iterations = 10000
 
-      val listOfTimes = 1 to 1000 flatMap { _ => Time.values.toList }
+      val listOfTimes = (1 to 1000).flatMap { _ => Time.values.toList }
       timeIt("Enum Serialize:   ", iterations) { () => serialization.serialize(listOfTimes) }
       timeIt("Enum Serialize:   ", iterations) { () => serialization.serialize(listOfTimes) }
       timeIt("Enum Serialize:   ", iterations) { () => serialization.serialize(listOfTimes) }

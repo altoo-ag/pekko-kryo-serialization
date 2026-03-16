@@ -31,18 +31,17 @@ object ActorRefSerializerTest {
 class ActorRefSerializerTest extends AbstractPekkoTest(ConfigFactory.parseString(ActorRefSerializerTest.testConfig)) {
   private val serialization = SerializationExtension(system)
 
-
   behavior of "ActorRefSerializer"
 
   it should "serialize and deserialize actorRef" in {
-    val value: ActorRef = system.actorOf(Props(new Actor {def receive: Receive = PartialFunction.empty}))
+    val value: ActorRef = system.actorOf(Props(new Actor { def receive: Receive = PartialFunction.empty }))
 
     // serialize
     val serializer = serialization.findSerializerFor(value)
     serializer shouldBe a[PekkoKryoSerializer]
 
     val serialized = serialization.serialize(value)
-    serialized shouldBe a[util.Success[_]]
+    serialized shouldBe a[util.Success[?]]
 
     // deserialize
     val deserialized = serialization.deserialize(serialized.get, classOf[ActorRef])

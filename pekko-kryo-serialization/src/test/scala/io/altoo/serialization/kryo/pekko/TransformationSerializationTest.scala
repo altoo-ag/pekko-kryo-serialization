@@ -67,19 +67,16 @@ class LZ4AESTransformationSerializationTest extends TransformationSerializationT
 class OffTransformationSerializationTest extends TransformationSerializationTest("Off", "")
 class UnsafeTransformationSerializationTest extends TransformationSerializationTest("Unsafe", "pekko-kryo-serialization.use-unsafe = true")
 class UnsafeLZ4TransformationSerializationTest extends TransformationSerializationTest("UnsafeLZ4",
-  """
+      """
     |pekko-kryo-serialization.use-unsafe = true
     |pekko-kryo-serialization.post-serialization-transformations = lz4
-    """.stripMargin
-)
+    """.stripMargin)
 
 @nowarn("cat=deprecation")
 abstract class TransformationSerializationTest(name: String, config: String) extends AbstractPekkoTest(
-  ConfigFactory.parseString(config)
-      .withFallback(ConfigFactory.parseString(TransformationSerializationTest.defaultConfig))
-) {
+      ConfigFactory.parseString(config)
+        .withFallback(ConfigFactory.parseString(TransformationSerializationTest.defaultConfig))) {
   private val serialization: Serialization = SerializationExtension(system)
-
 
   behavior of s"$name transformation serialization"
 
@@ -94,7 +91,7 @@ abstract class TransformationSerializationTest(name: String, config: String) ext
     serialization.findSerializerFor(tm) shouldBe a[PekkoKryoSerializer]
 
     val serialized = serialization.serialize(tm)
-    serialized shouldBe a[util.Success[_]]
+    serialized shouldBe a[util.Success[?]]
 
     val deserialized = serialization.deserialize(serialized.get, classOf[TreeMap[String, Any]])
     deserialized shouldBe util.Success(tm)
@@ -103,7 +100,7 @@ abstract class TransformationSerializationTest(name: String, config: String) ext
     val bb = ByteBuffer.allocate(serialized.get.length * 2)
 
     val bufferSerialized = Try(bufferSerializer.toBinary(tm, bb))
-    bufferSerialized shouldBe a[util.Success[_]]
+    bufferSerialized shouldBe a[util.Success[?]]
 
     bb.flip()
 
@@ -122,7 +119,7 @@ abstract class TransformationSerializationTest(name: String, config: String) ext
     serialization.findSerializerFor(tm) shouldBe a[PekkoKryoSerializer]
 
     val serialized = serialization.serialize(tm)
-    serialized shouldBe a[util.Success[_]]
+    serialized shouldBe a[util.Success[?]]
 
     val deserialized = serialization.deserialize(serialized.get, classOf[HashMap[String, Any]])
     deserialized shouldBe util.Success(tm)
@@ -131,7 +128,7 @@ abstract class TransformationSerializationTest(name: String, config: String) ext
     val bb = ByteBuffer.allocate(serialized.get.length * 2)
 
     val bufferSerialized = Try(bufferSerializer.toBinary(tm, bb))
-    bufferSerialized shouldBe a[util.Success[_]]
+    bufferSerialized shouldBe a[util.Success[?]]
 
     bb.flip()
 
@@ -150,7 +147,7 @@ abstract class TransformationSerializationTest(name: String, config: String) ext
     serialization.findSerializerFor(tm) shouldBe a[PekkoKryoSerializer]
 
     val serialized = serialization.serialize(tm)
-    serialized shouldBe a[util.Success[_]]
+    serialized shouldBe a[util.Success[?]]
 
     val deserialized = serialization.deserialize(serialized.get, classOf[AnyRefMap[String, Any]])
     deserialized shouldBe util.Success(tm)
@@ -159,7 +156,7 @@ abstract class TransformationSerializationTest(name: String, config: String) ext
     val bb = ByteBuffer.allocate(serialized.get.length * 2)
 
     val bufferSerialized = Try(bufferSerializer.toBinary(tm, bb))
-    bufferSerialized shouldBe a[util.Success[_]]
+    bufferSerialized shouldBe a[util.Success[?]]
 
     bb.flip()
 
@@ -178,7 +175,7 @@ abstract class TransformationSerializationTest(name: String, config: String) ext
     serialization.findSerializerFor(tm) shouldBe a[PekkoKryoSerializer]
 
     val serialized = serialization.serialize(tm)
-    serialized shouldBe a[util.Success[_]]
+    serialized shouldBe a[util.Success[?]]
 
     val deserialized = serialization.deserialize(serialized.get, classOf[scala.collection.mutable.HashMap[String, Any]])
     deserialized shouldBe util.Success(tm)
@@ -187,7 +184,7 @@ abstract class TransformationSerializationTest(name: String, config: String) ext
     val bb = ByteBuffer.allocate(serialized.get.length * 2)
 
     val bufferSerialized = Try(bufferSerializer.toBinary(tm, bb))
-    bufferSerialized shouldBe a[util.Success[_]]
+    bufferSerialized shouldBe a[util.Success[?]]
 
     bb.flip()
 
@@ -202,7 +199,7 @@ abstract class TransformationSerializationTest(name: String, config: String) ext
     serialization.findSerializerFor(tm) shouldBe a[PekkoKryoSerializer]
 
     val serialized = serialization.serialize(tm)
-    serialized shouldBe a[util.Success[_]]
+    serialized shouldBe a[util.Success[?]]
 
     val deserialized = serialization.deserialize(serialized.get, classOf[scala.collection.immutable.HashSet[String]])
     deserialized shouldBe util.Success(tm)
@@ -211,7 +208,7 @@ abstract class TransformationSerializationTest(name: String, config: String) ext
     val bb = ByteBuffer.allocate(serialized.get.length * 2)
 
     val bufferSerialized = Try(bufferSerializer.toBinary(tm, bb))
-    bufferSerialized shouldBe a[util.Success[_]]
+    bufferSerialized shouldBe a[util.Success[?]]
 
     bb.flip()
 
@@ -225,7 +222,7 @@ abstract class TransformationSerializationTest(name: String, config: String) ext
     serialization.findSerializerFor(tm) shouldBe a[PekkoKryoSerializer]
 
     val serialized = serialization.serialize(tm)
-    serialized shouldBe a[util.Success[_]]
+    serialized shouldBe a[util.Success[?]]
 
     val deserialized = serialization.deserialize(serialized.get, classOf[scala.collection.immutable.TreeSet[String]])
     deserialized shouldBe util.Success(tm)
@@ -234,7 +231,7 @@ abstract class TransformationSerializationTest(name: String, config: String) ext
     val bb = ByteBuffer.allocate(serialized.get.length * 2)
 
     val bufferSerialized = Try(bufferSerializer.toBinary(tm, bb))
-    bufferSerialized shouldBe a[util.Success[_]]
+    bufferSerialized shouldBe a[util.Success[?]]
 
     bb.flip()
 
@@ -248,7 +245,7 @@ abstract class TransformationSerializationTest(name: String, config: String) ext
     serialization.findSerializerFor(tm) shouldBe a[PekkoKryoSerializer]
 
     val serialized = serialization.serialize(tm)
-    serialized shouldBe a[util.Success[_]]
+    serialized shouldBe a[util.Success[?]]
 
     val deserialized = serialization.deserialize(serialized.get, classOf[scala.collection.mutable.HashSet[String]])
     deserialized shouldBe util.Success(tm)
@@ -257,7 +254,7 @@ abstract class TransformationSerializationTest(name: String, config: String) ext
     val bb = ByteBuffer.allocate(serialized.get.length * 2)
 
     val bufferSerialized = Try(bufferSerializer.toBinary(tm, bb))
-    bufferSerialized shouldBe a[util.Success[_]]
+    bufferSerialized shouldBe a[util.Success[?]]
 
     bb.flip()
 
@@ -271,7 +268,7 @@ abstract class TransformationSerializationTest(name: String, config: String) ext
     serialization.findSerializerFor(tm) shouldBe a[PekkoKryoSerializer]
 
     val serialized = serialization.serialize(tm)
-    serialized shouldBe a[util.Success[_]]
+    serialized shouldBe a[util.Success[?]]
 
     val deserialized = serialization.deserialize(serialized.get, classOf[scala.collection.mutable.TreeSet[String]])
     deserialized shouldBe util.Success(tm)
@@ -280,7 +277,7 @@ abstract class TransformationSerializationTest(name: String, config: String) ext
     val bb = ByteBuffer.allocate(serialized.get.length * 2)
 
     val bufferSerialized = Try(bufferSerializer.toBinary(tm, bb))
-    bufferSerialized shouldBe a[util.Success[_]]
+    bufferSerialized shouldBe a[util.Success[?]]
 
     bb.flip()
 

@@ -34,7 +34,6 @@ object ByteStringSerializerTest {
 class ByteStringSerializerTest extends AbstractPekkoTest(ConfigFactory.parseString(ByteStringSerializerTest.config)) with AnyFlatSpecLike with Matchers {
   private val serialization = SerializationExtension(system)
 
-
   behavior of "ByteStringSerializer"
 
   it should "handle ByteStrings" in {
