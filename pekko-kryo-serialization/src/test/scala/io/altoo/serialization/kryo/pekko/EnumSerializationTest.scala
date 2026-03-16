@@ -32,7 +32,6 @@ object EnumSerializationTest {
 class EnumSerializationTest extends AbstractPekkoTest(ConfigFactory.parseString(EnumSerializationTest.config)) {
   private val serialization = SerializationExtension(system)
 
-
   behavior of "Enumeration serialization"
 
   it should "be threadsafe" in {
@@ -40,9 +39,10 @@ class EnumSerializationTest extends AbstractPekkoTest(ConfigFactory.parseString(
 
     val listOfTimes = Time.values.toList
     val bytes = serialization.serialize(listOfTimes).get
-    val futures = 1 to 2 map (_ => Future[List[Time]] {
-      serialization.deserialize(bytes.clone, classOf[List[Time]]).get
-    })
+    val futures = (1 to 2).map(_ =>
+      Future[List[Time]] {
+        serialization.deserialize(bytes.clone, classOf[List[Time]]).get
+      })
 
     val result = Await.result(Future.sequence(futures), Duration.Inf)
 

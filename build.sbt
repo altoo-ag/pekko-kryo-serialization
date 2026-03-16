@@ -60,7 +60,7 @@ lazy val typed: Project = Project("pekko-kryo-serialization-typed", file("pekko-
 
 lazy val akkaCompat: Project = Project("pekko-kryo-serialization-akka-compat", file("pekko-kryo-serialization-akka-compat"))
   .settings(moduleSettings)
-  .settings(description := "pekko-serialization implementation using kryo - extension for improved wire compatibility with Akka")
+  .settings(description := "pekko-serialization implementation using kryo - extension for improved wire compatibility with Apache Pekko")
   .settings(libraryDependencies ++= testingDeps)
   .dependsOn(core, typed)
 

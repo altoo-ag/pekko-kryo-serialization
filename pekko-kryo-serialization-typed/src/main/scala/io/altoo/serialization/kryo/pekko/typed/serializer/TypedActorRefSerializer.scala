@@ -18,7 +18,7 @@
 
 package io.altoo.serialization.kryo.pekko.typed.serializer
 
-import org.apache.pekko.actor.typed._
+import org.apache.pekko.actor.typed.*
 import com.esotericsoftware.kryo.kryo5.io.{Input, Output}
 import com.esotericsoftware.kryo.kryo5.{Kryo, Serializer}
 
@@ -31,7 +31,7 @@ class TypedActorRefSerializer(val system: ActorSystem[Nothing]) extends Serializ
 
   private val resolver = ActorRefResolver(system)
 
-  override def read(kryo: Kryo, input: Input, typ: Class[_ <: ActorRef[Nothing]]): ActorRef[Nothing] = {
+  override def read(kryo: Kryo, input: Input, typ: Class[? <: ActorRef[Nothing]]): ActorRef[Nothing] = {
     val path = input.readString()
     resolver.resolveActorRef(path)
   }

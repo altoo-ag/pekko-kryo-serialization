@@ -31,7 +31,7 @@ class CompatTypedActorRefSerializer(val system: ActorSystem[Nothing]) extends Se
 
   private val resolver = ActorRefResolver(system)
 
-  override def read(kryo: Kryo, input: Input, typ: Class[_ <: ActorRef[Nothing]]): ActorRef[Nothing] = {
+  override def read(kryo: Kryo, input: Input, typ: Class[? <: ActorRef[Nothing]]): ActorRef[Nothing] = {
     val path = input.readString()
     val newPath = path.replace("akka://", "pekko://")
     resolver.resolveActorRef(newPath)
