@@ -12,11 +12,11 @@ Migration from akka-kryo-serialization to pekko-kryo-serialization
   # on Akka
   libraryDependencies += "io.altoo" %% "pekko-kryo-serialization-akka-compat" % "2.5.2"
   ```
-  Then configure (or derive from if using a custom initializer) `AkkaCompatKryoInitializer` on Pekko, and `PekkoCompatKryoInitializer` on Akka.
+  Then configure (or derive from if using a custom initializer) `AkkaCompatKryoInitializer` (or `TypedAkkaCompatKryoInitializer` for pekko-typed) on Pekko, and `PekkoCompatKryoInitializer` on Akka.
   ```
   # on Pekko
   pekko-kryo-serialization.kryo-initializer = "io.altoo.pekko.serialization.kryo.compat.AkkaCompatKryoInitializer"
   
   # on Akka
-  kka-kryo-serialization.kryo-initializer = "io.altoo.akka.serialization.kryo.compat.PekkoCompatKryoInitializer"
+  akka-kryo-serialization.kryo-initializer = "io.altoo.akka.serialization.kryo.compat.PekkoCompatKryoInitializer"
   ```

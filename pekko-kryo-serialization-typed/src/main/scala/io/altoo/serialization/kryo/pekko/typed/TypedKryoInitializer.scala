@@ -18,7 +18,7 @@ class TypedKryoInitializer extends DefaultKryoInitializer {
   }
 
   /**
-   * Registers serializer for standard akka classes - override only if you know what you are doing!
+   * Registers serializer for standard pekko classes - override only if you know what you are doing!
    */
   protected def initPekkoTypedSerializer(kryo: ScalaKryo): Unit = {
     kryo.addDefaultSerializer(classOf[typed.ActorRef[Nothing]], new TypedActorRefSerializer(typedSystem))
