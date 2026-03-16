@@ -41,9 +41,10 @@ To use this serializer, you need to do two things:
 
 These are the latest versions and their compatibility, requirements and testing guarantees. 
 
-| Version | Compatibility           | Kryo used | Available Scala Versions | Tested with                                                                           |
-|---------|-------------------------|-----------|--------------------------|---------------------------------------------------------------------------------------|
-| v1.4.x  | Pekko-1.x,2.x JDK >= 11 | 5.6.2     | 2.12, 2.13, 3.1          | JDK: OpenJdk11,17,21,25; Scala: 2.12.21,2.13.18,3.3.7; Pekko: 1.1.5,1.4.0,2.0.0-M1    |
+| Version | Compatibility           | Kryo used | Available Scala Versions | Tested with                                                                        |
+|---------|-------------------------|-----------|--------------------------|------------------------------------------------------------------------------------|
+| v1.5.x  | Pekko-1.x,2.x JDK >= 17 | 5.6.2     | 2.13, 3.3                | JDK: OpenJdk17,21,25; Scala: 2.13.18,3.3.7; Pekko: 1.1.5,1.4.0,2.0.0-M1           |
+| v1.4.x  | Pekko-1.x,2.x JDK >= 11 | 5.6.2     | 2.12, 2.13, 3.1          | JDK: OpenJdk11,17,21,25; Scala: 2.12.21,2.13.18,3.3.7; Pekko: 1.1.5,1.4.0,2.0.0-M1 |
 | v1.3.x  | Pekko-1.x JDK >= 11     | 5.6.2     | 2.12, 2.13, 3.1          | JDK: OpenJdk11,17,21; Scala: 2.12.20,2.13.16,3.3.5; Pekko: 1.1.3                      |
 | v1.2.x  | Pekko-1.x JDK >= 11     | 5.6.2     | 2.12, 2.13, 3.1          | JDK: OpenJdk11,17,21; Scala: 2.12.20,2.13.16,3.3.4; Pekko: 1.1.3                      |
 | v1.1.x  | Pekko-1.0 JDK >= 11     | 5.5.x     | 2.12, 2.13, 3.1          | JDK: OpenJdk11,17,21; Scala: 2.12.17,2.13.10,3.3.1; Pekko: 1.0.1                      |

@@ -5,7 +5,7 @@ import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 
 // note: keep in sync to pekko https://github.com/apache/pekko/blob/main/project/Dependencies.scala
 val mainScalaVersion = "3.3.7"
-val secondaryScalaVersions = Seq("2.12.21", "2.13.18")
+val secondaryScalaVersions = Seq("2.13.18")
 
 val scalaKryoVersion = "1.4.0"
 
@@ -15,7 +15,8 @@ val defaultPekkoVersion = "1.1.5"
 val pekkoVersion =
   System.getProperty("pekko.build.version", defaultPekkoVersion) match {
     case "default" => defaultPekkoVersion
-    case "latest" => "1.4.0"
+    case "latestV1" => "1.4.0"
+    case "latestV2" => "2.0.0-M1"
     case x         => x
   }
 
@@ -31,6 +32,7 @@ lazy val root: Project = project.in(file("."))
   .settings(publish / skip := true)
   .settings(OsgiKeys.privatePackage := Nil)
   .settings(OsgiKeys.exportPackage := Seq("io.altoo.*"))
+  .settings(crossScalaVersions := Nil)
   .aggregate(core, typed, akkaCompat)
 
 lazy val core: Project = Project("pekko-kryo-serialization", file("pekko-kryo-serialization"))
@@ -39,14 +41,12 @@ lazy val core: Project = Project("pekko-kryo-serialization", file("pekko-kryo-se
   .settings(libraryDependencies ++= coreDeps ++ testingDeps)
   .settings(Compile / unmanagedSourceDirectories += {
     scalaBinaryVersion.value match {
-      case "2.12" => baseDirectory.value / "src" / "main" / "scala-2.12"
       case "2.13" => baseDirectory.value / "src" / "main" / "scala-2.13"
       case _      => baseDirectory.value / "src" / "main" / "scala-3"
     }
   })
   .settings(Test / unmanagedSourceDirectories += {
     scalaBinaryVersion.value match {
-      case "2.12" => baseDirectory.value / "src" / "test" / "scala-2.12"
       case "2.13" => baseDirectory.value / "src" / "test" / "scala-2.13"
       case _      => baseDirectory.value / "src" / "test" / "scala-3"
     }
@@ -106,7 +106,7 @@ lazy val moduleSettings: Seq[Setting[?]] = commonSettings ++ noReleaseInSubmodul
 lazy val scalacBasicOptions = Seq(
   scalacOptions ++= {
     scalaBinaryVersion.value match {
-      case "2.12" | "2.13" =>
+      case "2.13" =>
         Seq(
           "-encoding", "utf8",
           "-feature",
@@ -131,18 +131,6 @@ lazy val scalacBasicOptions = Seq(
 lazy val scalacStrictOptions = Seq(
   scalacOptions ++= {
     scalaBinaryVersion.value match {
-      case "2.12" =>
-        Seq(
-          "-Xfatal-warnings",
-          "-Yno-adapted-args",
-          "-Ywarn-adapted-args",
-          "-Ywarn-dead-code",
-          "-Ywarn-extra-implicit",
-          "-Ywarn-inaccessible",
-          "-Ywarn-nullary-override",
-          "-Ywarn-nullary-unit",
-          "-Ywarn-unused:-explicits,-implicits,_",
-          "-Xsource:3")
       case "2.13" =>
         Seq(
           "-Werror",
@@ -152,7 +140,7 @@ lazy val scalacStrictOptions = Seq(
           "-Wunused:patvars",
           "-Wunused:privates",
           "-Wunused:locals",
-          // "-Wunused:params", enable once 2.12 support is dropped
+          "-Wunused:params",
           "-Wunused:nowarn",
           "-Xsource:3")
       case "3" =>
@@ -166,13 +154,6 @@ lazy val scalacStrictOptions = Seq(
 lazy val scalacLintOptions = Seq(
   scalacOptions ++= {
     scalaBinaryVersion.value match {
-      case "2.12" =>
-        Seq(
-          "-Xlint:private-shadow",
-          "-Xlint:type-parameter-shadow",
-          "-Xlint:adapted-args",
-          "-Xlint:unsound-match",
-          "-Xlint:option-implicit")
       case "2.13" =>
         Seq(
           "-Xlint:inaccessible",
