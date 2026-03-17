@@ -1,6 +1,12 @@
 pekko-kryo-serialization - migration guide
 =========================================
 
+
+Migration to 1.5.0
+------------------
+* Support for Scala 2.12 and JDK 11 has been dropped.
+* Minimum requirements are now Scala 2.13.18 or 3.3.7 and JDK 17.
+
 Migration from akka-kryo-serialization to pekko-kryo-serialization
 -----------------------------
 * You should upgrade to akka-kryo-serialization 2.5.0 before migrating to pekko-kryo-serialization and perform the respective [migrations](https://github.com/altoo-ag/akka-kryo-serialization/blob/master/migration-guide.md).
