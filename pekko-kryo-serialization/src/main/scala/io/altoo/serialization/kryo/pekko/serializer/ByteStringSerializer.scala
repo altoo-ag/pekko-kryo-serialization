@@ -18,23 +18,23 @@
 
 package io.altoo.serialization.kryo.pekko.serializer
 
-import org.apache.pekko.util.ByteString
 import com.esotericsoftware.kryo.kryo5.io.{Input, Output}
 import com.esotericsoftware.kryo.kryo5.{Kryo, Serializer}
+import org.apache.pekko.util.ByteString
 
 /**
  * Serializer for pekko [[ByteString]]
  */
-class ByteStringSerializer() extends Serializer[ByteString] {
+class ByteStringSerializer extends Serializer[ByteString] {
 
   override def read(kryo: Kryo, input: Input, typ: Class[? <: ByteString]): ByteString = {
     val len = input.readInt(true)
-    ByteString.fromArrayUnsafe(input.readBytes(len)) //input.readBytes already creates a copy of the byte[]
+    ByteString.fromArrayUnsafe(input.readBytes(len)) // input.readBytes already creates a copy of the byte[]
   }
 
   override def write(kryo: Kryo, output: Output, obj: ByteString): Unit = {
     val len = obj.size
     output.writeInt(len, true)
-    output.writeBytes(obj.toArrayUnsafe()) //writeBytes anyway copies byte[]
+    output.writeBytes(obj.toArrayUnsafe()) // writeBytes anyway copies byte[]
   }
 }
