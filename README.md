@@ -69,24 +69,12 @@ this dependency:
 To use the official release of pekko-kryo-serialization in Maven projects, please use the following snippet in your pom.xml
 
 ```xml
-    <repository>
-        <snapshots>
-            <enabled>false</enabled>
-        </snapshots>
-        <id>central</id>
-        <name>Maven Central Repository</name>
-        <url>http://repo1.maven.org/maven2</url>
-    </repository>
-
     <dependency>
         <groupId>io.altoo</groupId>
         <artifactId>pekko-kryo-serialization_2.13</artifactId>
         <version>1.x.x</version>
     </dependency>
 ```
-
-For snapshots see [Snapshots.md](Snapshots.md)
-
 
 Configuration of pekko-kryo-serialization
 -----------------------------------------
