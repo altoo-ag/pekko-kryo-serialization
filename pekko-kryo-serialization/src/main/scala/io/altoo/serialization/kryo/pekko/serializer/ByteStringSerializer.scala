@@ -23,7 +23,7 @@ import com.esotericsoftware.kryo.kryo5.{Kryo, Serializer}
 import org.apache.pekko.util.ByteString
 
 /**
- * Serializer for pekko [[ByteString]]
+ * Serializer for pekko @see org.apache.pekko.util.ByteString
  */
 class ByteStringSerializer extends Serializer[ByteString] {
 
