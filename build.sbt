@@ -20,7 +20,8 @@ val pekkoVersion =
     case x         => x
   }
 
-enablePlugins(SbtOsgi, ReleasePlugin)
+//enablePlugins(SbtOsgi, ReleasePlugin)
+enablePlugins(ReleasePlugin)
 addCommandAlias("validatePullRequest", ";+testFull")
 
 // Projects
@@ -30,8 +31,8 @@ lazy val root: Project = project.in(file("."))
   .settings(name := "pekko-kryo-serialization")
   .settings(releaseProcess := releaseSettings)
   .settings(publish / skip := true)
-  .settings(OsgiKeys.privatePackage := Nil)
-  .settings(OsgiKeys.exportPackage := Seq("io.altoo.*"))
+//  .settings(OsgiKeys.privatePackage := Nil)
+//  .settings(OsgiKeys.exportPackage := Seq("io.altoo.*"))
   .settings(crossScalaVersions := Nil)
   .aggregate(core, typed, akkaCompat)
 
