@@ -4,7 +4,7 @@ import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 // Basics
 
 // note: keep in sync to pekko https://github.com/apache/pekko/blob/main/project/Dependencies.scala
-val mainScalaVersion = "3.3.7"
+val mainScalaVersion = "3.3.8"
 val secondaryScalaVersions = Seq("2.13.18")
 
 val scalaKryoVersion = "1.5.2"
@@ -15,13 +15,14 @@ val defaultPekkoVersion = "1.1.5"
 val pekkoVersion =
   System.getProperty("pekko.build.version", defaultPekkoVersion) match {
     case "default" => defaultPekkoVersion
-    case "latestV1" => "1.4.0"
-    case "latestV2" => "2.0.0-M1"
+    case "latestV1" => "1.6.0"
+    case "latestV2" => "2.0.0-M3"
     case x         => x
   }
 
-enablePlugins(SbtOsgi, ReleasePlugin)
-addCommandAlias("validatePullRequest", ";+test")
+//enablePlugins(SbtOsgi, ReleasePlugin)
+enablePlugins(ReleasePlugin)
+addCommandAlias("validatePullRequest", ";+testFull")
 
 // Projects
 lazy val root: Project = project.in(file("."))
@@ -30,8 +31,8 @@ lazy val root: Project = project.in(file("."))
   .settings(name := "pekko-kryo-serialization")
   .settings(releaseProcess := releaseSettings)
   .settings(publish / skip := true)
-  .settings(OsgiKeys.privatePackage := Nil)
-  .settings(OsgiKeys.exportPackage := Seq("io.altoo.*"))
+//  .settings(OsgiKeys.privatePackage := Nil)
+//  .settings(OsgiKeys.exportPackage := Seq("io.altoo.*"))
   .settings(crossScalaVersions := Nil)
   .aggregate(core, typed, akkaCompat)
 
@@ -39,18 +40,6 @@ lazy val core: Project = Project("pekko-kryo-serialization", file("pekko-kryo-se
   .settings(moduleSettings)
   .settings(description := "pekko-serialization implementation using kryo - core implementation")
   .settings(libraryDependencies ++= coreDeps ++ testingDeps)
-  .settings(Compile / unmanagedSourceDirectories += {
-    scalaBinaryVersion.value match {
-      case "2.13" => baseDirectory.value / "src" / "main" / "scala-2.13"
-      case _      => baseDirectory.value / "src" / "main" / "scala-3"
-    }
-  })
-  .settings(Test / unmanagedSourceDirectories += {
-    scalaBinaryVersion.value match {
-      case "2.13" => baseDirectory.value / "src" / "test" / "scala-2.13"
-      case _      => baseDirectory.value / "src" / "test" / "scala-3"
-    }
-  })
 
 lazy val typed: Project = Project("pekko-kryo-serialization-typed", file("pekko-kryo-serialization-typed"))
   .settings(moduleSettings)
@@ -98,7 +87,7 @@ lazy val moduleSettings: Seq[Setting[?]] = commonSettings ++ noReleaseInSubmodul
   // required to run unsafe with JDK 17
   Test / javaOptions ++= Seq("--add-opens", "java.base/java.nio=ALL-UNNAMED", "--add-opens", "java.base/sun.nio.ch=ALL-UNNAMED"),
   pomExtra := pomExtras,
-  publishTo := sonatypePublishToBundle.value,
+  publishTo := localStaging.value,
   publishMavenStyle := true,
   Test / publishArtifact := false,
   pomIncludeRepository := { _ => false })
@@ -188,9 +177,10 @@ lazy val releaseSettings = Seq[ReleaseStep](
   setReleaseVersion,
   commitReleaseVersion,
   tagRelease,
-  // do these manually on checked out tag... verify on https://oss.sonatype.org/#stagingRepositories
+  // Release just tags - we checkout tag manually and sign -> the gpg key to sign is not exposed to github this way.
+  // Do these manually after checking out the tag on the release host:
   //  releaseStepCommandAndRemaining("+publishSigned"),
-  //  releaseStepCommand("sonatypeBundleRelease"),
+  //  releaseStepCommand("sonaRelease"),
   setNextVersion,
   commitNextVersion,
   pushChanges)
